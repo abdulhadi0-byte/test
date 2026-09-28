@@ -50,12 +50,16 @@ function shrink(f){return new Promise(ok=>{const i=new Image;i.onload=()=>{const
 c.width=i.width*s;c.height=i.height*s;c.getContext('2d').drawImage(i,0,0,c.width,c.height);ok(c.toDataURL('image/jpeg',.8))};i.src=URL.createObjectURL(f)})}
 async function analyse(img){
 if(!C.GEMINI_API_KEY)return{...DEMO,note:'Demo suggestions - paste your Gemini key in config.js for photo-specific results.'};
-try{const r=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key='+C.GEMINI_API_KEY,
-{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{inlineData:{mimeType:'image/jpeg',data:img.split(',')[1]}},
-{text:`You are an interior designer. Room type: ${room}. Look at this photo and reply ONLY with JSON: {"summary":"one sentence about this room","layouts":[3 items of {"name","description"} specific to this photo],"palettes":[3 items of {"name","colors":[3 hex codes]} that suit the existing furniture and light]}`}]}],
-generationConfig:{responseMimeType:'application/json',temperature:.4}})});
-const j=await r.json();return JSON.parse(j.candidates[0].content.parts[0].text)}
-catch(e){return{...DEMO,note:'Gemini could not be reached - showing demo suggestions.'}}}
+const prompt=`You are a senior interior designer. This is a photo of a ${room}. First study what is actually visible: walls, windows and light, floor, existing furniture, style and colours. Then reply ONLY with JSON: {"summary":"2 sentences describing THIS room and its main design opportunity","layouts":[exactly 3 items {"name":"short name","description":"2 sentences: where to place specific furniture, referring to things visible in the photo (e.g. the window, the sofa, the empty corner)"}],"palettes":[exactly 3 items {"name":"short name","colors":["wall colour hex","main furniture hex","accent hex"]} chosen to work with the existing floor and furniture]}. Be specific to this photo, never generic.`;
+let err='';
+for(const m of (C.MODELS||['gemini-3.5-flash','gemini-3.1-flash-lite','gemini-2.5-flash'])){
+try{const r=await fetch('https://generativelanguage.googleapis.com/v1beta/models/'+m+':generateContent?key='+C.GEMINI_API_KEY,
+{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{inlineData:{mimeType:'image/jpeg',data:img.split(',')[1]}},{text:prompt}]}],
+generationConfig:{responseMimeType:'application/json',temperature:.5}})});
+const j=await r.json();if(!r.ok){err=m+': '+(j.error?.message||r.status);continue}
+const o=JSON.parse(j.candidates[0].content.parts[0].text);o.note='(Analysed by '+m+')';return o}
+catch(e){err=m+': '+e.message}}
+return{...DEMO,note:'Gemini failed - '+err+' - showing demo suggestions.'}}
 const go=v=>{view=v;draw()};
 const sw=c=>`<div class="sw">${c.map(x=>`<i style="background:${x}"></i>`).join('')}</div>`;
 function side(){const L=[['dash','Dashboard'],['upload','Upload Room'],['saved','Saved Designs']];
