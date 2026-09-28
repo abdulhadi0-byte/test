@@ -5,83 +5,121 @@
 <style>
 :root{--bg:#F5EFE6;--card:#FFFAF2;--ink:#2B1F17;--mut:#7A6A5C;--br:#8B5E3C;--dk:#3A2A1F;--ln:#E4D8C8}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,system-ui,sans-serif}
-h1,h2,h3{font-family:'Playfair Display',serif;font-weight:500;margin:0}
-button,input,select{font:inherit}a{cursor:pointer}
-.btn{background:var(--br);color:#fff;border:0;border-radius:10px;padding:11px 20px;cursor:pointer;font-weight:500}
-.btn:hover{background:var(--dk)}.btn.o{background:none;color:var(--dk);border:1px solid var(--dk)}.btn:disabled{opacity:.5}
-nav.top{display:flex;justify-content:space-between;align-items:center;padding:18px 6vw;background:var(--card);border-bottom:1px solid var(--ln)}
-.logo{font-family:'Playfair Display',serif;font-size:20px;color:var(--dk)}
-.hero{margin:24px 6vw;border-radius:22px;min-height:440px;padding:6vw;display:flex;flex-direction:column;justify-content:center;gap:16px;color:#fff;
-background:linear-gradient(90deg,rgba(43,31,23,.85),rgba(43,31,23,.25)),url(https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1600) center/cover}
-.hero h1{font-size:clamp(34px,6vw,60px);max-width:560px}.hero p{max-width:460px;opacity:.9}
-.grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));padding:24px 6vw}
-.card{background:var(--card);border:1px solid var(--ln);border-radius:16px;padding:22px}
-.card h3{font-size:19px;margin-bottom:6px}.mut{color:var(--mut)}
-.auth{max-width:380px;margin:60px auto;display:grid;gap:12px}
-input,select{width:100%;padding:11px 13px;border:1px solid var(--ln);border-radius:10px;background:#fff}
+h1,h2,h3{font-family:'Playfair Display',serif;font-weight:500;margin:0}a,.pill,.opt{cursor:pointer}button,input,select,textarea{font:inherit}
+.btn{background:var(--br);color:#fff;border:0;border-radius:10px;padding:10px 18px;cursor:pointer;font-weight:500}.btn:hover{background:var(--dk)}
+.btn.o{background:none;color:var(--dk);border:1px solid var(--dk)}.btn.s{padding:6px 12px;font-size:13px}.btn:disabled{opacity:.5;cursor:default}
+nav.top{display:flex;justify-content:space-between;align-items:center;padding:16px 6vw;background:var(--card);border-bottom:1px solid var(--ln)}
+.logo{font-family:'Playfair Display',serif;font-size:20px;color:var(--dk)}.mut{color:var(--mut)}
+.hero{margin:24px 6vw;border-radius:22px;min-height:460px;padding:6vw;display:flex;flex-direction:column;justify-content:center;gap:16px;color:#fff;background:linear-gradient(90deg,rgba(43,31,23,.88),rgba(43,31,23,.2)),url(https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1600) center/cover}
+.hero h1{font-size:clamp(34px,6vw,60px);max-width:580px}.hero p{max-width:470px;opacity:.9}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}.pad{padding:24px 6vw}
+.card{background:var(--card);border:1px solid var(--ln);border-radius:16px;padding:20px}.card h3{font-size:19px;margin-bottom:6px}
+.auth{max-width:380px;margin:60px auto;display:grid;gap:12px;padding:0 16px}
+input,select,textarea{width:100%;padding:10px 12px;border:1px solid var(--ln);border-radius:10px;background:#fff}
 .app{display:grid;grid-template-columns:230px 1fr;min-height:100vh}
-aside{background:var(--dk);color:#EADFD0;padding:24px 14px;display:flex;flex-direction:column;gap:4px}
-aside .logo{color:#fff;padding:0 10px 18px}aside a{padding:10px 12px;border-radius:9px}
-aside a:hover{background:#4a382b}aside a.on{background:var(--br);color:#fff}
-main{padding:32px 4vw}main>h2{font-size:30px;margin-bottom:4px}
-.drop{border:2px dashed var(--br);border-radius:16px;padding:40px;text-align:center;background:var(--card);cursor:pointer}
-.drop img{max-width:100%;max-height:280px;border-radius:12px}
-.pills{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}.pill{padding:8px 15px;border:1px solid var(--ln);border-radius:99px;cursor:pointer;background:var(--card)}
-.pill.on{background:var(--br);color:#fff;border-color:var(--br)}
-.res{display:grid;gap:20px;grid-template-columns:1.2fr 1fr}.res img,.thumb{width:100%;border-radius:14px;object-fit:cover}
-.sw{display:flex;border-radius:8px;overflow:hidden;margin-bottom:6px}.sw i{flex:1;height:26px}
-.opt{border:1px solid var(--ln);border-radius:12px;padding:12px;margin-bottom:8px;cursor:pointer;background:var(--card)}.opt.on{border-color:var(--br);box-shadow:0 0 0 2px var(--br)}
+aside{background:var(--dk);color:#EADFD0;padding:22px 12px;display:flex;flex-direction:column;gap:4px}
+aside .logo{color:#fff;padding:0 10px 16px}aside a{padding:10px 12px;border-radius:9px}aside a:hover{background:#4a382b}aside a.on{background:var(--br);color:#fff}
+main{padding:30px 4vw;min-width:0}main>h2{font-size:30px}
+.drop{display:block;border:2px dashed var(--br);border-radius:16px;padding:32px;text-align:center;background:var(--card);cursor:pointer}.drop img{max-width:100%;max-height:300px;border-radius:12px}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.pill{padding:7px 14px;border:1px solid var(--ln);border-radius:99px;background:var(--card)}.pill.on{background:var(--br);color:#fff;border-color:var(--br)}
+.sty{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));margin:12px 0}.sty .opt{padding:10px}
+.opt{border:1px solid var(--ln);border-radius:12px;padding:12px;background:var(--card)}.opt.on{border-color:var(--br);box-shadow:0 0 0 2px var(--br)}
+.sw{display:flex;border-radius:8px;overflow:hidden;margin-bottom:6px}.sw i{flex:1;height:24px}
+.res{display:grid;gap:20px;grid-template-columns:1.3fr 1fr}.cmp{position:relative;border-radius:14px;overflow:hidden;background:#000;user-select:none}
+.cmp img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.cmp input{position:absolute;left:5%;bottom:10px;width:90%;z-index:3;padding:0}
+.tag{position:absolute;top:10px;background:rgba(0,0,0,.6);color:#fff;padding:3px 10px;border-radius:99px;font-size:12px;z-index:2}.tag.l{left:10px}.tag.r{right:10px}
+.bx{position:absolute;border:2px solid #FFD9A8;background:rgba(139,94,60,.25);border-radius:6px}.bx i{position:absolute;top:-1px;left:-1px;background:var(--br);color:#fff;font-style:normal;font-size:12px;padding:0 6px;border-radius:5px}
+.thumb{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;display:block}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.star{font-size:20px;cursor:pointer;color:#C9A97E}
+.av{width:84px;height:84px;border-radius:50%;background:var(--br);color:#fff;display:grid;place-items:center;font-size:32px;object-fit:cover}
+.spin{width:34px;height:34px;border:3px solid var(--ln);border-top-color:var(--br);border-radius:50%;animation:s 1s linear infinite;margin:0 auto 12px}@keyframes s{to{transform:rotate(360deg)}}
+#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--dk);color:#fff;padding:10px 18px;border-radius:10px;z-index:9;display:none}
+.warn{background:#FFF1DC;border:1px solid #E8C48F;border-radius:10px;padding:10px 12px;font-size:13px;margin:10px 0}
+table{width:100%;border-collapse:collapse;font-size:14px}td{padding:8px 6px;border-bottom:1px solid var(--ln);vertical-align:top}
 @media(max-width:800px){.app{grid-template-columns:1fr}aside{flex-direction:row;overflow:auto}aside .logo{display:none}.res{grid-template-columns:1fr}}
-</style></head><body><div id="root"></div>
+</style></head><body><div id="root"></div><div id="toast"></div>
 <script src="config.js"></script>
 <script>
 const C=window.CONFIG||{},$=s=>document.querySelector(s),R=$('#root');
 const ls=(k,v)=>v===undefined?JSON.parse(localStorage.getItem(k)||'null'):localStorage.setItem(k,JSON.stringify(v));
-let user=ls('vid_user'),view=user?'dash':'home',file=null,room='Living room',res=null,busy=false,li=0,pi=0,mode='login';
-const ROOMS=['Living room','Bedroom','Kitchen','Office','Dining'];
-const DEMO={summary:'A room with good natural light and space to rearrange.',layouts:[
-{name:'Open Flow',description:'Furniture along the walls with an open centre.'},
-{name:'Cozy Corner',description:'Seating grouped around one focal point.'},
-{name:'Zoned Layout',description:'Separate areas for relaxing and working.'}],palettes:[
-{name:'Warm Neutral',colors:['#E8DCC8','#C9A97E','#8B6F47']},
-{name:'Soft Sage',colors:['#E4E9DD','#A7B79A','#5C6B4F']},
-{name:'Clay & Cream',colors:['#F4EDE4','#E8734A','#8A4A2F']}]};
-function shrink(f){return new Promise(ok=>{const i=new Image;i.onload=()=>{const s=Math.min(1,900/i.width),c=document.createElement('canvas');
-c.width=i.width*s;c.height=i.height*s;c.getContext('2d').drawImage(i,0,0,c.width,c.height);ok(c.toDataURL('image/jpeg',.8))};i.src=URL.createObjectURL(f)})}
-async function analyse(img){
-if(!C.GEMINI_API_KEY)return{...DEMO,note:'Demo suggestions - paste your Gemini key in config.js for photo-specific results.'};
-const prompt=`You are a senior interior designer. This is a photo of a ${room}. First study what is actually visible: walls, windows and light, floor, existing furniture, style and colours. Then reply ONLY with JSON: {"summary":"2 sentences describing THIS room and its main design opportunity","layouts":[exactly 3 items {"name":"short name","description":"2 sentences: where to place specific furniture, referring to things visible in the photo (e.g. the window, the sofa, the empty corner)"}],"palettes":[exactly 3 items {"name":"short name","colors":["wall colour hex","main furniture hex","accent hex"]} chosen to work with the existing floor and furniture]}. Be specific to this photo, never generic.`;
-let err='';
-for(const m of (C.MODELS||['gemini-3.5-flash','gemini-3.1-flash-lite','gemini-2.5-flash'])){
-try{const r=await fetch('https://generativelanguage.googleapis.com/v1beta/models/'+m+':generateContent?key='+C.GEMINI_API_KEY,
-{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{inlineData:{mimeType:'image/jpeg',data:img.split(',')[1]}},{text:prompt}]}],
-generationConfig:{responseMimeType:'application/json',temperature:.5}})});
+const toast=t=>{const e=$('#toast');e.textContent=t;e.style.display='block';setTimeout(()=>e.style.display='none',3000)};
+const sha=async s=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s)))].map(b=>b.toString(16).padStart(2,'0')).join('');
+const STYLES=[
+['Modern','Clean lines, neutral base, statement lighting and low sofas.',['#EDE8E0','#8A8F98','#2B2B2B'],'low-profile sofa, glass coffee table, arc floor lamp'],
+['Scandinavian','Light woods, white walls, cosy textiles and soft daylight.',['#F4F1EC','#D9C7A8','#7B8B7A'],'oak dining set, wool throw, sheepskin chair'],
+['Minimalist','Only essentials, open floor, calm single-tone colours.',['#F7F7F5','#CFCFCB','#3D3D3D'],'platform bed, floating shelf, one accent chair'],
+['Bohemian','Layered rugs, rattan, plants and warm earthy patterns.',['#E9D8BF','#B5651D','#4F6D4A'],'rattan chair, kilim rug, macrame, hanging plants'],
+['Industrial','Exposed textures, dark metal, leather and raw wood.',['#CFC8BE','#5A4A3F','#1F1F1F'],'leather sofa, metal shelving, pendant cage lights'],
+['Mid-Century','Tapered legs, walnut wood and retro mustard or teal accents.',['#F2E6CF','#C58B2B','#2F5D62'],'walnut sideboard, tapered-leg sofa, lounge chair'],
+['Japandi','Japanese calm plus Nordic warmth: low, natural, handmade.',['#EFE9DF','#B8A58B','#4A4038'],'low platform bed, paper lantern, ceramic vases'],
+['Classic Luxury','Rich fabrics, symmetry, gold accents and statement pieces.',['#EFE6D6','#B08D57','#3B2F2F'],'tufted sofa, marble table, crystal chandelier']];
+const ROOMS=['Living room','Bedroom','Kitchen','Office','Dining room','Bathroom'];
+let user=ls('vid_user'),view=user?'dash':'home',mode='login',file=null,room=user?.room||'Living room',sty=0,note='',res=null,rv='cmp',busy=false,fav=false,sf='All';
+const D=()=>ls('vid_designs')||[],go=v=>{view=v;draw();scrollTo(0,0)};
+const sh=(src,m,q)=>new Promise(ok=>{const i=new Image;i.onload=()=>{const s=Math.min(1,m/Math.max(i.width,i.height)),c=document.createElement('canvas');c.width=i.width*s;c.height=i.height*s;c.getContext('2d').drawImage(i,0,0,c.width,c.height);ok({d:c.toDataURL('image/jpeg',q),w:c.width,h:c.height})};i.src=src});
+const ratio=(w,h)=>{const r=w/h;return['1:1','3:2','2:3','3:4','4:3','4:5','5:4','9:16','16:9','21:9'].sort((a,b)=>Math.abs(eval(a.replace(':','/'))-r)-Math.abs(eval(b.replace(':','/'))-r))[0]};
+async function gem(models,input,fmt){let err='';for(const m of models){try{
+const r=await fetch('https://generativelanguage.googleapis.com/v1beta/interactions',{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':C.GEMINI_API_KEY},body:JSON.stringify({model:m,input,...(fmt?{response_format:fmt}:{})})});
 const j=await r.json();if(!r.ok){err=m+': '+(j.error?.message||r.status);continue}
-const o=JSON.parse(j.candidates[0].content.parts[0].text);o.note='(Analysed by '+m+')';return o}
-catch(e){err=m+': '+e.message}}
-return{...DEMO,note:'Gemini failed - '+err+' - showing demo suggestions.'}}
-const go=v=>{view=v;draw()};
-const sw=c=>`<div class="sw">${c.map(x=>`<i style="background:${x}"></i>`).join('')}</div>`;
-function side(){const L=[['dash','Dashboard'],['upload','Upload Room'],['saved','Saved Designs']];
-return`<aside><div class="logo">Virtual Interior<br>Designing</div>${L.map(([k,t])=>`<a class="${view==k||(k=='upload'&&view=='res')?'on':''}" onclick="go('${k}')">${t}</a>`).join('')}<a onclick="out()" style="margin-top:auto">Logout</a></aside>`}
+const o={model:m,text:'',image:null};for(const s of j.steps||[])if(s.type==='model_output')for(const b of s.content||[]){if(b.type==='text')o.text+=b.text;if(b.type==='image'&&b.data)o.image='data:'+(b.mime_type||'image/png')+';base64,'+b.data}
+if(o.text||o.image)return o;err=m+': empty response'}catch(e){err=m+': '+e.message}}throw new Error(err)}
+const DEMO=(S)=>({summary:'Demo result - add your Gemini key in config.js for a plan based on your actual photo.',palette:S[2],furniture:S[3].split(', ').map((x,i)=>({item:x,placement:'Suggested for this style.',price:'-',box:null})),tips:['Layer lighting at three heights.','Keep walkways about 90 cm wide.','Repeat one accent colour three times.']});
+async function run(){const S=STYLES[sty],img=file.d.split(',')[1];busy=true;draw();
+const msgs=['Studying your room...','Mapping walls, windows and floor space...','Choosing '+S[0]+' furniture...','Placing furniture...','Finishing touches...'];let k=0;const t=setInterval(()=>{const e=$('#ld');if(e)e.textContent=msgs[++k%msgs.length]},2500);
+res={style:S[0],room,note:'',before:file.d,w:file.w,h:file.h,after:null,imgErr:''};
+if(!C.GEMINI_API_KEY){Object.assign(res,DEMO(S),{note:'Demo mode: paste your Gemini key in config.js.'})}else{
+const ip=`Redesign this ${room} photo in ${S[0]} interior style: ${S[1]} Keep the exact room structure - walls, windows, doors, ceiling, floor and camera angle - and only add or replace furniture, rugs, lighting, plants and decor so it looks like a finished, professionally staged photo. Furnish sensibly for the free space; never block windows or doors. Palette: ${S[2].join(', ')}. ${note}`;
+const ap=`You are a senior interior designer looking at a photo of a ${room}. Redesign it in ${S[0]} style (${S[1]}). ${note?'Client request: '+note+'. ':''}Study the walls, windows, light, floor, existing furniture and free space. Reply ONLY with JSON: {"summary":"2 sentences about THIS room and the plan","furniture":[6 to 8 items {"item":"specific piece","placement":"where and why, referring to things visible in the photo","price":"estimated price in USD like $450","box":[ymin,xmin,ymax,xmax] integers 0-1000 marking where the piece goes in the photo]}],"palette":[3 hex colours: wall, main, accent],"tips":[3 short styling tips]}`;
+const inp=p=>[{type:'text',text:p},{type:'image',mime_type:'image/jpeg',data:img}];
+const [a,b]=await Promise.allSettled([gem(C.TEXT_MODELS||['gemini-3.8-flash'],inp(ap)),C.USE_IMAGE_GENERATION===false?Promise.reject(new Error('off')):gem(C.IMAGE_MODELS||['gemini-3.1-flash-image'],inp(ip),{type:'image',mime_type:'image/jpeg',aspect_ratio:ratio(file.w,file.h)})]);
+if(a.status==='fulfilled'){try{const t=a.value.text,j=JSON.parse(t.slice(t.indexOf('{'),t.lastIndexOf('}')+1));Object.assign(res,j,{note:'Analysed by '+a.value.model})}catch(e){Object.assign(res,DEMO(S),{note:'Gemini replied in an unexpected format - showing demo details.'})}}
+else Object.assign(res,DEMO(S),{note:'Gemini analysis failed: '+a.reason.message});
+if(b.status==='fulfilled')res.after=b.value.image;else if(b.reason.message!=='off')res.imgErr=b.reason.message}
+clearInterval(t);busy=false;fav=false;rv=res.after?'cmp':'map';go('res')}
+const sw=c=>`<div class="sw">${(c||[]).map(x=>`<i style="background:${x}"></i>`).join('')}</div>`;
+function view_(){const d=D();
+if(view=='dash'){const fv=d.filter(x=>x.fav).length,cnt={};d.forEach(x=>cnt[x.style]=(cnt[x.style]||0)+1);const top=Object.entries(cnt).sort((a,b)=>b[1]-a[1])[0];
+return`<h2>Good day, ${user.name}</h2><p class="mut">Let's design your dream space.</p><br><div class="grid"><div class="card" style="background:var(--br);color:#fff;grid-column:span 2"><h3>Redesign a room</h3><p>Upload a photo, pick a style, get a new layout.</p><button class="btn o" style="color:#fff;border-color:#fff" onclick="go('studio')">Start now</button></div><div class="card"><h3>${d.length}</h3><span class="mut">Designs</span></div><div class="card"><h3>${fv}</h3><span class="mut">Favourites</span></div><div class="card"><h3>${top?top[0]:'-'}</h3><span class="mut">Top style</span></div></div><br><h3>Recent designs</h3><br><div class="grid">${d.slice(0,4).map((x,i)=>card(x,i)).join('')||'<p class="mut">Nothing yet - create your first design.</p>'}</div>`}
+if(view=='studio')return`<h2>New redesign</h2><p class="mut">Use a clear, well-lit photo taken from a corner.</p><br><label class="drop" for="f">${file?`<img src="${file.d}">`:'Click to choose a room photo (JPG / PNG)'}</label><input id="f" type="file" accept="image/*" hidden onchange="pick(this.files[0])">
+<h3 style="margin-top:18px">Room type</h3><div class="pills">${ROOMS.map(r=>`<span class="pill ${r==room?'on':''}" onclick="room='${r}';draw()">${r}</span>`).join('')}</div>
+<h3>Style</h3><div class="sty">${STYLES.map((s,i)=>`<div class="opt ${i==sty?'on':''}" onclick="sty=${i};draw()">${sw(s[2])}<b>${s[0]}</b></div>`).join('')}</div><p class="mut">${STYLES[sty][1]}</p>
+<h3 style="margin-top:14px">Special requests (optional)</h3><textarea rows="2" oninput="note=this.value" placeholder="e.g. keep the sofa, add a reading corner, kid-friendly">${note}</textarea><br><br>
+${busy?'<div class="card" style="text-align:center"><div class="spin"></div><b>Designing your room</b><p class="mut" id="ld">Studying your room...</p></div>':`<button class="btn" ${file?'':'disabled'} onclick="run()">Redesign my room</button>`}`;
+if(view=='res'){const r=res,box=(r.furniture||[]).map((f,i)=>Array.isArray(f.box)&&f.box.length==4?`<b class="bx" style="top:${f.box[0]/10}%;left:${f.box[1]/10}%;height:${(f.box[2]-f.box[0])/10}%;width:${(f.box[3]-f.box[1])/10}%"><i>${i+1}</i></b>`:'').join('');
+const st=`aspect-ratio:${r.w||4}/${r.h||3}`;
+const stage=rv=='cmp'&&r.after?`<div class="cmp" style="${st}"><img src="${r.after}"><img id="bf" src="${r.before}" style="clip-path:inset(0 50% 0 0)"><span class="tag l">Before</span><span class="tag r">After</span><input type="range" min="0" max="100" value="50" oninput="$('#bf').style.clipPath='inset(0 '+(100-this.value)+'% 0 0)'"></div>`:`<div class="cmp" style="${st}"><img src="${r.before}">${box}<span class="tag l">Furniture map</span></div>`;
+return`<h2>${r.style} ${r.room.toLowerCase()}</h2><p class="mut">${r.summary||''}</p><p class="mut" style="font-size:13px">${r.note||''}</p>${r.imgErr?`<div class="warn"><b>Photo redesign unavailable:</b> ${r.imgErr}<br>Image generation needs billing enabled on your Google project. The furniture map below is free.</div>`:''}<br>
+<div class="res"><div>${stage}<div class="row" style="margin-top:12px">${r.after?`<button class="btn o s" onclick="rv=rv=='cmp'?'map':'cmp';draw()">${rv=='cmp'?'Show furniture map':'Show before / after'}</button><a class="btn o s" href="${r.after}" download="redesign-${r.style}.jpg">Download</a>`:''}<button class="btn s" onclick="save()">Save design</button><button class="btn o s" onclick="run()">Regenerate</button><button class="btn o s" onclick="go('studio')">Change style</button></div></div>
+<div><h3>Palette</h3><br>${sw(r.palette)}<p class="mut">${(r.palette||[]).join('  ')}</p><br><h3>Furniture plan</h3><table>${(r.furniture||[]).map((f,i)=>`<tr><td><b>${i+1}. ${f.item}</b><br><span class="mut">${f.placement||''}</span></td><td>${f.price||''}</td></tr>`).join('')}</table><br><h3>Styling tips</h3><ul>${(r.tips||[]).map(t=>`<li>${t}</li>`).join('')}</ul></div></div>`}
+if(view=='saved'){const l=d.map((x,i)=>[x,i]).filter(([x])=>sf=='All'||(sf=='Favourites'?x.fav:x.style==sf));
+return`<h2>My designs</h2><div class="pills">${['All','Favourites',...STYLES.map(s=>s[0])].map(s=>`<span class="pill ${s==sf?'on':''}" onclick="sf='${s}';draw()">${s}</span>`).join('')}</div><div class="grid">${l.map(([x,i])=>card(x,i)).join('')||'<p class="mut">No designs here yet.</p>'}</div>`}
+if(view=='styles')return`<h2>Style guide</h2><p class="mut">Pick a style, then use it in a redesign.</p><br><div class="grid">${STYLES.map((s,i)=>`<div class="card">${sw(s[2])}<h3>${s[0]}</h3><p class="mut">${s[1]}</p><p style="font-size:13px"><b>Key pieces:</b> ${s[3]}</p><button class="btn s" onclick="sty=${i};go('studio')">Use this style</button></div>`).join('')}</div>`;
+if(view=='profile'){const d=D();return`<h2>Profile</h2><br><div class="row">${user.avatar?`<img class="av" src="${user.avatar}">`:`<div class="av">${user.name[0].toUpperCase()}</div>`}<label class="btn o s">Change photo<input type="file" accept="image/*" hidden onchange="avatar(this.files[0])"></label></div><br>
+<div class="grid" style="max-width:640px"><div><label class="mut">Full name</label><input id="pn" value="${user.name}"></div><div><label class="mut">Email</label><input value="${user.email}" disabled></div><div><label class="mut">Phone</label><input id="pp" value="${user.phone||''}" placeholder="+92 300 1234567"></div><div><label class="mut">Default room</label><select id="pr">${ROOMS.map(r=>`<option ${r==user.room?'selected':''}>${r}</option>`).join('')}</select></div></div><br>
+<div class="row"><button class="btn" onclick="saveP()">Update profile</button><button class="btn o" onclick="exp()">Export my data</button><button class="btn o" onclick="if(confirm('Delete your account and all designs on this device?'))wipe()">Delete account</button></div><br><p class="mut">${d.length} designs saved on this device.</p>`}}
+const card=(x,i)=>`<div class="card"><img class="thumb" src="${x.after||x.before}"><p style="margin:8px 0 2px"><b>${x.style}</b> - ${x.room}</p><p class="mut" style="margin:0 0 8px;font-size:13px">${x.date}</p><div class="row"><span class="star" onclick="tf(${i})">${x.fav?'★':'☆'}</span><button class="btn s" onclick="op(${i})">Open</button><button class="btn o s" onclick="del(${i})">Delete</button></div></div>`;
 function draw(){
-if(view=='home')R.innerHTML=`<nav class="top"><span class="logo">Virtual Interior Designing</span><span><button class="btn o" onclick="mode='login';go('auth')">Sign in</button> <button class="btn" onclick="mode='signup';go('auth')">Get started</button></span></nav>
-<section class="hero"><h1>Design that feels like home.</h1><p>Upload a photo of your room and get AI layout and colour ideas before you buy a single piece of furniture.</p><div><button class="btn" onclick="mode='signup';go('auth')">Try it free</button></div></section>
-<div class="grid">${[['Room analysis','AI reads your photo: light, space and existing style.'],['Layout ideas','Arrangements suited to your actual room.'],['Colour palettes','Palettes that complement what is already there.'],['Save designs','Keep favourites and revisit them anytime.']].map(x=>`<div class="card"><h3>${x[0]}</h3><p class="mut">${x[1]}</p></div>`).join('')}</div>`;
-else if(view=='auth')R.innerHTML=`<div class="auth"><h2>${mode=='login'?'Welcome back':'Create your account'}</h2>${mode=='signup'?'<input id="n" placeholder="Full name">':''}<input id="e" type="email" placeholder="Email"><input id="p" type="password" placeholder="Password"><button class="btn" onclick="auth()">${mode=='login'?'Sign in':'Create account'}</button><a class="mut" onclick="mode=mode=='login'?'signup':'login';draw()">${mode=='login'?'No account? Sign up':'Have an account? Sign in'}</a><a class="mut" onclick="go('home')">Back</a></div>`;
-else{const d=ls('vid_designs')||[];let m='';
-if(view=='dash')m=`<h2>Good morning, ${user.name||'there'}</h2><p class="mut">Let's design your dream space.</p><div class="grid" style="padding:20px 0"><div class="card" style="background:var(--br);color:#fff"><h3>Upload room image</h3><p>Get layout and colour ideas in seconds.</p><button class="btn o" style="color:#fff;border-color:#fff" onclick="go('upload')">Upload now</button></div><div class="card"><h3>${d.length}</h3><p class="mut">Saved designs</p></div></div><h3>Recent designs</h3><div class="grid" style="padding:14px 0">${d.slice(0,3).map(x=>`<div class="card"><img class="thumb" src="${x.img}" height="140"><p><b>${x.room}</b><br><span class="mut">${x.layout}</span></p></div>`).join('')||'<p class="mut">Nothing yet.</p>'}</div>`;
-else if(view=='upload')m=`<h2>Upload your room</h2><p class="mut">A clear, well-lit photo works best.</p><br><label class="drop" for="f">${file?`<img src="${file.img}">`:'Click to choose a photo (JPG / PNG)'}</label><input id="f" type="file" accept="image/*" hidden onchange="pick(this.files[0])"><div class="pills">${ROOMS.map(r=>`<span class="pill ${r==room?'on':''}" onclick="room='${r}';draw()">${r}</span>`).join('')}</div><button class="btn" ${!file||busy?'disabled':''} onclick="run()">${busy?'Analysing your room...':'Analyse room'}</button>`;
-else if(view=='res'){const r=res;m=`<h2>Your suggestions</h2><p class="mut">${r.summary||''} ${r.note||''}</p><br><div class="res"><img src="${file.img}"><div><h3>Layouts</h3><br>${r.layouts.map((l,i)=>`<div class="opt ${i==li?'on':''}" onclick="li=${i};draw()"><b>${l.name}</b><br><span class="mut">${l.description}</span></div>`).join('')}<br><h3>Palettes</h3><br>${r.palettes.map((p,i)=>`<div class="opt ${i==pi?'on':''}" onclick="pi=${i};draw()">${sw(p.colors)}<b>${p.name}</b></div>`).join('')}<button class="btn" onclick="save()">Save this design</button></div></div>`}
-else if(view=='saved')m=`<h2>Saved designs</h2><div class="grid" style="padding:20px 0">${d.map((x,i)=>`<div class="card"><img class="thumb" src="${x.img}" height="150"><p><b>${x.room}</b> - ${x.layout}</p>${sw(x.colors)}<button class="btn o" onclick="del(${i})">Delete</button></div>`).join('')||'<p class="mut">No saved designs yet.</p>'}</div>`;
-R.innerHTML=`<div class="app">${side()}<main>${m}</main></div>`}}
-function auth(){const e=$('#e').value.trim(),p=$('#p').value;if(!e||p.length<6)return alert('Enter an email and a password of 6+ characters.');
-user={email:e,name:($('#n')?.value||e.split('@')[0])};ls('vid_user',user);go('dash')}
+if(view=='home')R.innerHTML=`<nav class="top"><span class="logo">Virtual Interior Designing</span><span class="row"><button class="btn o s" onclick="mode='login';go('auth')">Sign in</button><button class="btn s" onclick="mode='signup';go('auth')">Get started</button></span></nav>
+<section class="hero"><h1>Design that feels like home.</h1><p>Upload a photo of your room, choose a style and see it re-furnished before you buy anything.</p><div><button class="btn" onclick="mode='signup';go('auth')">Try it free</button></div></section>
+<div class="grid pad">${[['AI room redesign','Your own photo, re-furnished in the style you pick.'],['Furniture plan','Every piece, where it goes and an estimated price.'],['8 design styles','Modern, Japandi, Bohemian, Luxury and more.'],['Save and compare','Favourites, before/after slider and downloads.']].map(x=>`<div class="card"><h3>${x[0]}</h3><p class="mut">${x[1]}</p></div>`).join('')}</div>
+<div class="pad"><h2>How it works</h2><br><div class="grid">${['Upload a photo of your room','Choose a room type and style','Get your redesign and furniture plan'].map((t,i)=>`<div class="card"><h3>0${i+1}</h3><p>${t}</p></div>`).join('')}</div></div>`;
+else if(view=='auth')R.innerHTML=`<div class="auth"><h2>${mode=='login'?'Welcome back':'Create your account'}</h2>${mode=='signup'?'<input id="n" placeholder="Full name">':''}<input id="e" type="email" placeholder="Email"><input id="p" type="password" placeholder="Password (6+ characters)"><button class="btn" onclick="auth()">${mode=='login'?'Sign in':'Create account'}</button><a class="mut" onclick="mode=mode=='login'?'signup':'login';draw()">${mode=='login'?'No account? Sign up':'Have an account? Sign in'}</a><a class="mut" onclick="go('home')">Back</a></div>`;
+else{const L=[['dash','Dashboard'],['studio','New Redesign'],['saved','My Designs'],['styles','Style Guide'],['profile','Profile']];
+R.innerHTML=`<div class="app"><aside><div class="logo">Virtual Interior<br>Designing</div>${L.map(([k,t])=>`<a class="${view==k||(k=='studio'&&view=='res')?'on':''}" onclick="go('${k}')">${t}</a>`).join('')}<a onclick="out()" style="margin-top:auto">Logout</a></aside><main>${view_()}</main></div>`}}
+async function auth(){const e=$('#e').value.trim().toLowerCase(),p=$('#p').value,U=ls('vid_users')||{};if(!e.includes('@')||p.length<6)return toast('Enter a valid email and a 6+ character password.');const h=await sha(p);
+if(mode=='signup'){if(U[e])return toast('That email is already registered - sign in.');U[e]={h,name:$('#n').value.trim()||e.split('@')[0]};ls('vid_users',U)}else if(!U[e]||U[e].h!==h)return toast('Wrong email or password.');
+user={email:e,name:U[e].name,phone:U[e].phone||'',room:U[e].room||'Living room',avatar:U[e].avatar||''};ls('vid_user',user);room=user.room;go('dash')}
 function out(){ls('vid_user',null);user=null;go('home')}
-async function pick(f){if(f)file={img:await shrink(f)};draw()}
-async function run(){busy=true;draw();res=await analyse(file.img);busy=false;li=pi=0;go('res')}
-function save(){const d=ls('vid_designs')||[];d.unshift({img:file.img,room,layout:res.layouts[li].name,colors:res.palettes[pi].colors});
-try{ls('vid_designs',d);go('saved')}catch(e){alert('Storage full - delete an old design first.')}}
-function del(i){const d=ls('vid_designs')||[];d.splice(i,1);ls('vid_designs',d);draw()}
+async function pick(f){if(f){file=await sh(URL.createObjectURL(f),900,.85);draw()}}
+async function avatar(f){if(f){user.avatar=(await sh(URL.createObjectURL(f),120,.8)).d;sv();draw()}}
+function sv(){ls('vid_user',user);const U=ls('vid_users')||{};if(U[user.email]){Object.assign(U[user.email],{name:user.name,phone:user.phone,room:user.room,avatar:user.avatar});ls('vid_users',U)}}
+function saveP(){user.name=$('#pn').value.trim()||user.name;user.phone=$('#pp').value;user.room=$('#pr').value;room=user.room;sv();toast('Profile updated');draw()}
+function exp(){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify({profile:{...user,avatar:undefined},designs:D()},null,1)],{type:'application/json'}));a.download='my-designs.json';a.click()}
+function wipe(){const U=ls('vid_users')||{};delete U[user.email];ls('vid_users',U);localStorage.removeItem('vid_designs');out()}
+async function save(){const r=res,d=D(),b=await sh(r.before,640,.7),a=r.after?await sh(r.after,640,.75):null;
+d.unshift({...r,before:b.d,after:a?a.d:null,w:b.w,h:b.h,date:new Date().toLocaleDateString(),fav:false});try{ls('vid_designs',d);toast('Design saved');}catch(e){toast('Storage full - delete an old design first.')}}
+const op=i=>{res={...D()[i]};rv=res.after?'cmp':'map';go('res')};
+function tf(i){const d=D();d[i].fav=!d[i].fav;ls('vid_designs',d);draw()}
+function del(i){const d=D();d.splice(i,1);ls('vid_designs',d);draw()}
 draw();
 </script></body></html>
