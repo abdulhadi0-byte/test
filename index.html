@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Virtual Interior Designing</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F5EFE6;--card:#FFFAF2;--ink:#2B1F17;--mut:#7A6A5C;--br:#8B5E3C;--dk:#3A2A1F;--ln:#E4D8C8}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,system-ui,sans-serif}
+h1,h2,h3{font-family:'Playfair Display',serif;font-weight:500;margin:0}
+button,input,select{font:inherit}a{cursor:pointer}
+.btn{background:var(--br);color:#fff;border:0;border-radius:10px;padding:11px 20px;cursor:pointer;font-weight:500}
+.btn:hover{background:var(--dk)}.btn.o{background:none;color:var(--dk);border:1px solid var(--dk)}.btn:disabled{opacity:.5}
+nav.top{display:flex;justify-content:space-between;align-items:center;padding:18px 6vw;background:var(--card);border-bottom:1px solid var(--ln)}
+.logo{font-family:'Playfair Display',serif;font-size:20px;color:var(--dk)}
+.hero{margin:24px 6vw;border-radius:22px;min-height:440px;padding:6vw;display:flex;flex-direction:column;justify-content:center;gap:16px;color:#fff;
+background:linear-gradient(90deg,rgba(43,31,23,.85),rgba(43,31,23,.25)),url(https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1600) center/cover}
+.hero h1{font-size:clamp(34px,6vw,60px);max-width:560px}.hero p{max-width:460px;opacity:.9}
+.grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));padding:24px 6vw}
+.card{background:var(--card);border:1px solid var(--ln);border-radius:16px;padding:22px}
+.card h3{font-size:19px;margin-bottom:6px}.mut{color:var(--mut)}
+.auth{max-width:380px;margin:60px auto;display:grid;gap:12px}
+input,select{width:100%;padding:11px 13px;border:1px solid var(--ln);border-radius:10px;background:#fff}
+.app{display:grid;grid-template-columns:230px 1fr;min-height:100vh}
+aside{background:var(--dk);color:#EADFD0;padding:24px 14px;display:flex;flex-direction:column;gap:4px}
+aside .logo{color:#fff;padding:0 10px 18px}aside a{padding:10px 12px;border-radius:9px}
+aside a:hover{background:#4a382b}aside a.on{background:var(--br);color:#fff}
+main{padding:32px 4vw}main>h2{font-size:30px;margin-bottom:4px}
+.drop{border:2px dashed var(--br);border-radius:16px;padding:40px;text-align:center;background:var(--card);cursor:pointer}
+.drop img{max-width:100%;max-height:280px;border-radius:12px}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}.pill{padding:8px 15px;border:1px solid var(--ln);border-radius:99px;cursor:pointer;background:var(--card)}
+.pill.on{background:var(--br);color:#fff;border-color:var(--br)}
+.res{display:grid;gap:20px;grid-template-columns:1.2fr 1fr}.res img,.thumb{width:100%;border-radius:14px;object-fit:cover}
+.sw{display:flex;border-radius:8px;overflow:hidden;margin-bottom:6px}.sw i{flex:1;height:26px}
+.opt{border:1px solid var(--ln);border-radius:12px;padding:12px;margin-bottom:8px;cursor:pointer;background:var(--card)}.opt.on{border-color:var(--br);box-shadow:0 0 0 2px var(--br)}
+@media(max-width:800px){.app{grid-template-columns:1fr}aside{flex-direction:row;overflow:auto}aside .logo{display:none}.res{grid-template-columns:1fr}}
+</style></head><body><div id="root"></div>
+<script src="config.js"></script>
+<script>
+const C=window.CONFIG||{},$=s=>document.querySelector(s),R=$('#root');
+const ls=(k,v)=>v===undefined?JSON.parse(localStorage.getItem(k)||'null'):localStorage.setItem(k,JSON.stringify(v));
+let user=ls('vid_user'),view=user?'dash':'home',file=null,room='Living room',res=null,busy=false,li=0,pi=0,mode='login';
+const ROOMS=['Living room','Bedroom','Kitchen','Office','Dining'];
+const DEMO={summary:'A room with good natural light and space to rearrange.',layouts:[
+{name:'Open Flow',description:'Furniture along the walls with an open centre.'},
+{name:'Cozy Corner',description:'Seating grouped around one focal point.'},
+{name:'Zoned Layout',description:'Separate areas for relaxing and working.'}],palettes:[
+{name:'Warm Neutral',colors:['#E8DCC8','#C9A97E','#8B6F47']},
+{name:'Soft Sage',colors:['#E4E9DD','#A7B79A','#5C6B4F']},
+{name:'Clay & Cream',colors:['#F4EDE4','#E8734A','#8A4A2F']}]};
+function shrink(f){return new Promise(ok=>{const i=new Image;i.onload=()=>{const s=Math.min(1,900/i.width),c=document.createElement('canvas');
+c.width=i.width*s;c.height=i.height*s;c.getContext('2d').drawImage(i,0,0,c.width,c.height);ok(c.toDataURL('image/jpeg',.8))};i.src=URL.createObjectURL(f)})}
+async function analyse(img){
+if(!C.GEMINI_API_KEY)return{...DEMO,note:'Demo suggestions - paste your Gemini key in config.js for photo-specific results.'};
+try{const r=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key='+C.GEMINI_API_KEY,
+{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{inlineData:{mimeType:'image/jpeg',data:img.split(',')[1]}},
+{text:`You are an interior designer. Room type: ${room}. Look at this photo and reply ONLY with JSON: {"summary":"one sentence about this room","layouts":[3 items of {"name","description"} specific to this photo],"palettes":[3 items of {"name","colors":[3 hex codes]} that suit the existing furniture and light]}`}]}],
+generationConfig:{responseMimeType:'application/json',temperature:.4}})});
+const j=await r.json();return JSON.parse(j.candidates[0].content.parts[0].text)}
+catch(e){return{...DEMO,note:'Gemini could not be reached - showing demo suggestions.'}}}
+const go=v=>{view=v;draw()};
+const sw=c=>`<div class="sw">${c.map(x=>`<i style="background:${x}"></i>`).join('')}</div>`;
+function side(){const L=[['dash','Dashboard'],['upload','Upload Room'],['saved','Saved Designs']];
+return`<aside><div class="logo">Virtual Interior<br>Designing</div>${L.map(([k,t])=>`<a class="${view==k||(k=='upload'&&view=='res')?'on':''}" onclick="go('${k}')">${t}</a>`).join('')}<a onclick="out()" style="margin-top:auto">Logout</a></aside>`}
+function draw(){
+if(view=='home')R.innerHTML=`<nav class="top"><span class="logo">Virtual Interior Designing</span><span><button class="btn o" onclick="mode='login';go('auth')">Sign in</button> <button class="btn" onclick="mode='signup';go('auth')">Get started</button></span></nav>
+<section class="hero"><h1>Design that feels like home.</h1><p>Upload a photo of your room and get AI layout and colour ideas before you buy a single piece of furniture.</p><div><button class="btn" onclick="mode='signup';go('auth')">Try it free</button></div></section>
+<div class="grid">${[['Room analysis','AI reads your photo: light, space and existing style.'],['Layout ideas','Arrangements suited to your actual room.'],['Colour palettes','Palettes that complement what is already there.'],['Save designs','Keep favourites and revisit them anytime.']].map(x=>`<div class="card"><h3>${x[0]}</h3><p class="mut">${x[1]}</p></div>`).join('')}</div>`;
+else if(view=='auth')R.innerHTML=`<div class="auth"><h2>${mode=='login'?'Welcome back':'Create your account'}</h2>${mode=='signup'?'<input id="n" placeholder="Full name">':''}<input id="e" type="email" placeholder="Email"><input id="p" type="password" placeholder="Password"><button class="btn" onclick="auth()">${mode=='login'?'Sign in':'Create account'}</button><a class="mut" onclick="mode=mode=='login'?'signup':'login';draw()">${mode=='login'?'No account? Sign up':'Have an account? Sign in'}</a><a class="mut" onclick="go('home')">Back</a></div>`;
+else{const d=ls('vid_designs')||[];let m='';
+if(view=='dash')m=`<h2>Good morning, ${user.name||'there'}</h2><p class="mut">Let's design your dream space.</p><div class="grid" style="padding:20px 0"><div class="card" style="background:var(--br);color:#fff"><h3>Upload room image</h3><p>Get layout and colour ideas in seconds.</p><button class="btn o" style="color:#fff;border-color:#fff" onclick="go('upload')">Upload now</button></div><div class="card"><h3>${d.length}</h3><p class="mut">Saved designs</p></div></div><h3>Recent designs</h3><div class="grid" style="padding:14px 0">${d.slice(0,3).map(x=>`<div class="card"><img class="thumb" src="${x.img}" height="140"><p><b>${x.room}</b><br><span class="mut">${x.layout}</span></p></div>`).join('')||'<p class="mut">Nothing yet.</p>'}</div>`;
+else if(view=='upload')m=`<h2>Upload your room</h2><p class="mut">A clear, well-lit photo works best.</p><br><label class="drop" for="f">${file?`<img src="${file.img}">`:'Click to choose a photo (JPG / PNG)'}</label><input id="f" type="file" accept="image/*" hidden onchange="pick(this.files[0])"><div class="pills">${ROOMS.map(r=>`<span class="pill ${r==room?'on':''}" onclick="room='${r}';draw()">${r}</span>`).join('')}</div><button class="btn" ${!file||busy?'disabled':''} onclick="run()">${busy?'Analysing your room...':'Analyse room'}</button>`;
+else if(view=='res'){const r=res;m=`<h2>Your suggestions</h2><p class="mut">${r.summary||''} ${r.note||''}</p><br><div class="res"><img src="${file.img}"><div><h3>Layouts</h3><br>${r.layouts.map((l,i)=>`<div class="opt ${i==li?'on':''}" onclick="li=${i};draw()"><b>${l.name}</b><br><span class="mut">${l.description}</span></div>`).join('')}<br><h3>Palettes</h3><br>${r.palettes.map((p,i)=>`<div class="opt ${i==pi?'on':''}" onclick="pi=${i};draw()">${sw(p.colors)}<b>${p.name}</b></div>`).join('')}<button class="btn" onclick="save()">Save this design</button></div></div>`}
+else if(view=='saved')m=`<h2>Saved designs</h2><div class="grid" style="padding:20px 0">${d.map((x,i)=>`<div class="card"><img class="thumb" src="${x.img}" height="150"><p><b>${x.room}</b> - ${x.layout}</p>${sw(x.colors)}<button class="btn o" onclick="del(${i})">Delete</button></div>`).join('')||'<p class="mut">No saved designs yet.</p>'}</div>`;
+R.innerHTML=`<div class="app">${side()}<main>${m}</main></div>`}}
+function auth(){const e=$('#e').value.trim(),p=$('#p').value;if(!e||p.length<6)return alert('Enter an email and a password of 6+ characters.');
+user={email:e,name:($('#n')?.value||e.split('@')[0])};ls('vid_user',user);go('dash')}
+function out(){ls('vid_user',null);user=null;go('home')}
+async function pick(f){if(f)file={img:await shrink(f)};draw()}
+async function run(){busy=true;draw();res=await analyse(file.img);busy=false;li=pi=0;go('res')}
+function save(){const d=ls('vid_designs')||[];d.unshift({img:file.img,room,layout:res.layouts[li].name,colors:res.palettes[pi].colors});
+try{ls('vid_designs',d);go('saved')}catch(e){alert('Storage full - delete an old design first.')}}
+function del(i){const d=ls('vid_designs')||[];d.splice(i,1);ls('vid_designs',d);draw()}
+draw();
+</script></body></html>
